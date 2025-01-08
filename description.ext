@@ -1,0 +1,13 @@
+class CfgFunctions
+{
+    class VRS
+    {
+        class Functions
+        {
+            class getSmokeParams
+            {
+                file = "functions\fn_getSmokeParams.sqf";
+            };
+        };
+    };
+};

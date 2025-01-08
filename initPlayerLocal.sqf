@@ -1,3 +1,47 @@
+// Define smoke colors - Add this at the top of the file
+private _smokeColors = [
+    [[0, 0.3, 1]], // Blue-ish
+    [[1, 0.3, 0]], // Red-ish
+    [[0, 1, 0.3]], // Green-ish
+    [[0.7, 0, 1]], // Purple-ish
+    [[1, 0.8, 0]]  // Yellow-ish
+];
+
+// Add the function to create smoke parameters
+private _fnc_getSmokeParams = {
+    params ["_box"];
+    private _selectedColor = selectRandom _smokeColors;
+    
+    [
+        ["\A3\data_f\cl_basic", 1, 0, 1],
+        "",
+        "Billboard",
+        1,
+        6,
+        [0, 0, 0],
+        [0, 0, 0.8],
+        0.5,
+        0.05,
+        0.042,
+        0.04,
+        [0.3, 1.5, 3],
+        [
+            [(_selectedColor # 0) # 0, (_selectedColor # 0) # 1, (_selectedColor # 0) # 2, 0],
+            [(_selectedColor # 0) # 0, (_selectedColor # 0) # 1, (_selectedColor # 0) # 2, 0.4],
+            [(_selectedColor # 0) # 0, (_selectedColor # 0) # 1, (_selectedColor # 0) # 2, 0.3],
+            [(_selectedColor # 0) # 0, (_selectedColor # 0) # 1, (_selectedColor # 0) # 2, 0.2],
+            [(_selectedColor # 0) # 0, (_selectedColor # 0) # 1, (_selectedColor # 0) # 2, 0.1],
+            [(_selectedColor # 0) # 0, (_selectedColor # 0) # 1, (_selectedColor # 0) # 2, 0]
+        ],
+        [0.08],
+        1,
+        0.1,
+        "",
+        "",
+        _box
+    ]
+};
+
 // Get box list from server
 private _boxList = missionNamespace getVariable "VRS_boxList";
 
@@ -10,35 +54,8 @@ diag_log format ["[VRS Debug] Client initializing %1 boxes", count _boxList];
     private _box = _x;
     private _smoke = "#particlesource" createVehicleLocal position _box;
     
-    // Enhanced smoke configuration for natural fade
-    _smoke setParticleParams [
-        ["\A3\data_f\cl_basic", 1, 0, 1],      // Shape
-        "",                                      // Animation
-        "Billboard",                            // Type
-        1,                                      // Timer
-        6,                                      // Lifetime (increased)
-        [0, 0, 0],                             // Position
-        [0, 0, 0.8],                           // Move velocity (increased)
-        0.5,                                    // Rotation velocity (reduced)
-        0.05,                                   // Weight
-        0.042,                                  // Volume
-        0.04,                                   // Rubbing (reduced)
-        [0.3, 1.5, 3],                         // Size (gradual increase)
-        [
-            [0, 0.3, 1, 0],                    // Start transparent
-            [0, 0.3, 1, 0.4],                  // Fade in
-            [0, 0.3, 1, 0.3],                  // Peak
-            [0, 0.3, 1, 0.2],                  // Start fade
-            [0, 0.3, 1, 0.1],                  // More fade
-            [0, 0.3, 1, 0]                     // End transparent
-        ],
-        [0.08],                                 // Animation (slower)
-        1,                                      // Random dir period
-        0.1,                                    // Random dir intensity
-        "",                                     // On timer script
-        "",                                     // Before destroy script
-        _box                                    // Object to follow
-    ];
+    // Enhanced smoke configuration using function
+    _smoke setParticleParams ([_box] call _fnc_getSmokeParams);
     
     _smoke setParticleRandom [
         3,                                      // Life time
