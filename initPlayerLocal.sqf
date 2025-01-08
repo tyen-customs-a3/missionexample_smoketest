@@ -67,8 +67,8 @@ diag_log format ["[VRS Debug] Client initializing %1 boxes", count _boxList];
         "Collect Box",
         "\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_connect_ca.paa",
         "\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_connect_ca.paa",
-        "{cursorObject isEqualTo _target}",
-        "true",
+        "cursorObject isEqualTo _target && {_this distance _target < 5}", // Condition to show
+        "true", // Condition to hide
         {},
         {},
         {
