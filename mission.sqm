@@ -17,8 +17,9 @@ class EditorData
 	class Camera
 	{
 		pos[]={3316.7668,35,3855.8472};
-		dir[]={0,-0.70710683,0.70710683};
-		up[]={0,0.70710671,0.70710683};
+		dir[]={-1.2363449e-07,-0.70710683,0.70710683};
+		up[]={-1.2363449e-07,0.70710671,0.70710683};
+		aside[]={1,0,1.7484557e-07};
 	};
 };
 binarizationWanted=0;
@@ -28,14 +29,13 @@ addons[]=
 	"A3_Characters_F",
 	"A3_Characters_F_Exp_Civil",
 	"A3_Ui_F",
-	"A3_Supplies_F_Heli_CargoNets",
-	"ace_fortify"
+	"A3_Supplies_F_Heli_CargoNets"
 };
 class AddonsMetaData
 {
 	class List
 	{
-		items=5;
+		items=4;
 		class Item0
 		{
 			className="A3_Characters_F";
@@ -63,13 +63,6 @@ class AddonsMetaData
 			name="Arma 3 Helicopters - Ammoboxes and Supplies";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
-		};
-		class Item4
-		{
-			className="ace_fortify";
-			name="ACE3 - Fortify";
-			author="ACE-Team";
-			url="https://ace3mod.com/";
 		};
 	};
 };
