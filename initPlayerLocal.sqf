@@ -61,13 +61,13 @@ diag_log format ["[VRS Debug] Client initializing %1 boxes", count _boxList];
     systemChat format ["[Client] Created smoke for box at %1", position _box];
     diag_log format ["[VRS Debug] Created smoke for box ID %1 at pos %2", _boxId, position _box];
     
-    // Add interaction
+    // Add interaction with proper visibility
     [
         _box,
         "Collect Box",
         "\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_connect_ca.paa",
         "\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_connect_ca.paa",
-        "alive _target",
+        "{cursorObject isEqualTo _target}",
         "true",
         {},
         {},
@@ -77,11 +77,13 @@ diag_log format ["[VRS Debug] Client initializing %1 boxes", count _boxList];
         },
         {},
         [],
-        2, // Duration
-        10, // Distance
-        false,
-        false
-    ] remoteExec ["BIS_fnc_holdActionAdd", 0, _box];
+        2,     // Duration
+        10,    // Distance
+        true,  // Hide on use
+        false, // Don't show in unconscious state
+        true,  // Show in 3D
+        true   // Hide in scroll menu (added parameter)
+    ] call BIS_fnc_holdActionAdd;  // Local execution, no remoteExec needed
     
 } forEach _boxList;
 
